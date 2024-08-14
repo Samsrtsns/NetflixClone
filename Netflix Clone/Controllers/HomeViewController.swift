@@ -18,8 +18,21 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+        configureNavigationBar()
         configureTableView()
+    }
+    
+    private func configureNavigationBar(){
+        var image = UIImage(named: "NavigationLeft")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil),
+        ]
+        
+        navigationController?.navigationBar.tintColor = .white
     }
     
     private func configureTableView(){
@@ -28,7 +41,8 @@ class HomeViewController: UIViewController {
         homeFeedTabs.delegate = self
         homeFeedTabs.dataSource = self
         
-        homeFeedTabs.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+        homeFeedTabs.tableHeaderView = headerView
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,5 +76,12 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let defaultOffset = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffset
+        
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
 }

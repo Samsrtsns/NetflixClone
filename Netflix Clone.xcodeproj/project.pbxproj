@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11FB0EB92C6CDDF600096A28 /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FB0EB82C6CDDF600096A28 /* HeroHeaderUIView.swift */; };
 		9544CC752C6BF7E0009520F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544CC742C6BF7E0009520F4 /* AppDelegate.swift */; };
 		9544CC772C6BF7E0009520F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544CC762C6BF7E0009520F4 /* SceneDelegate.swift */; };
 		9544CC7E2C6BF7E1009520F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9544CC7D2C6BF7E1009520F4 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11FB0EB82C6CDDF600096A28 /* HeroHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderUIView.swift; sourceTree = "<group>"; };
 		9544CC712C6BF7E0009520F4 /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9544CC742C6BF7E0009520F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9544CC762C6BF7E0009520F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				9544CC982C6C00C7009520F4 /* CollectionViewTableViewCell.swift */,
+				11FB0EB82C6CDDF600096A28 /* HeroHeaderUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				9544CC902C6BFA79009520F4 /* UpcomingViewController.swift in Sources */,
 				9544CC8E2C6BFA6E009520F4 /* SearchViewController.swift in Sources */,
 				9544CC992C6C00C7009520F4 /* CollectionViewTableViewCell.swift in Sources */,
+				11FB0EB92C6CDDF600096A28 /* HeroHeaderUIView.swift in Sources */,
 				9544CC922C6BFA87009520F4 /* DownloadsViewController.swift in Sources */,
 				9544CC752C6BF7E0009520F4 /* AppDelegate.swift in Sources */,
 				9544CC892C6BFA07009520F4 /* MainTabBarController.swift in Sources */,
