@@ -7,6 +7,14 @@
 
 import UIKit
 
+enum Sections :Int {
+    case TrendingMovies = 0
+    case TrendingTv = 1
+    case Popular = 2
+    case Upcoming = 3
+    case TopRated = 4
+}
+
 class HomeViewController: UIViewController {
     
     let sectionTitles : [String] = ["Trending Movies","Populer","Trending Tv","Upcoming Movies","Top Rated"]
@@ -22,7 +30,6 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
         configureTableView()
-        getTrendingMovies()
     }
     
     private func configureNavigationBar(){
@@ -53,11 +60,6 @@ class HomeViewController: UIViewController {
         homeFeedTabs.frame = view.bounds
     }
     
-    private func getTrendingMovies(){
-        APICaller.shared.getTrendingMovies { _ in
-            
-        }
-    }
 }
 
 extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
@@ -75,6 +77,62 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        
+        switch indexPath.section {
+        case Sections.TrendingMovies.rawValue:
+            APICaller.shared.getTrendingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        case Sections.TrendingTv.rawValue:
+            APICaller.shared.getTrendingTvs { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        case Sections.Popular.rawValue:
+            APICaller.shared.getPopular { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        case Sections.Upcoming.rawValue:
+            APICaller.shared.getUpcomingMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        case Sections.TopRated.rawValue:
+            APICaller.shared.getTopRated { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
+        default :
+            return UITableViewCell()
+        }
+        
         return cell
     }
     
@@ -83,7 +141,7 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
         header.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
-        header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
