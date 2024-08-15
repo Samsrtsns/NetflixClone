@@ -15,6 +15,8 @@ class TitleCollectionViewCell: UICollectionViewCell {
     private let posterImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.white.cgColor
         return imageView
     }()
     
@@ -30,6 +32,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.frame = contentView.bounds
+        posterImageView.layer.cornerRadius = 8
     }
     
     public func configure(with model : String){

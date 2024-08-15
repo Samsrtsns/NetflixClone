@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Sections :Int {
+enum Sections : Int {
     case TrendingMovies = 0
     case TrendingTv = 1
     case Popular = 2
