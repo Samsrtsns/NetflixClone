@@ -18,8 +18,8 @@ class MainTabBarController: UITabBarController {
     private func configureTabBar(){
         // We added navigatin controller to each screen for navigation.
         let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: SearchViewController())
-        let vc3 = UINavigationController(rootViewController: UpcomingViewController())
+        let vc2 = UINavigationController(rootViewController: UpcomingViewController())
+        let vc3 = UINavigationController(rootViewController: SearchViewController())
         let vc4 = UINavigationController(rootViewController: DownloadsViewController())
         
         vc1.tabBarItem.image = UIImage(systemName: "house")
@@ -28,7 +28,7 @@ class MainTabBarController: UITabBarController {
         vc4.tabBarItem.image = UIImage(systemName: "arrow.down.to.line")
         
         vc1.title = "Home"
-        vc2.title = "Coming Soon"
+        vc2.title = "Upcoming"
         vc3.title = "Top Search"
         vc4.title = "Downloads"
         
