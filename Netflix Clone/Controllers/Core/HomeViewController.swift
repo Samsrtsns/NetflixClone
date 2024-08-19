@@ -17,7 +17,7 @@ enum Sections : Int {
 
 class HomeViewController: UIViewController {
     
-    let sectionTitles : [String] = ["Trending Movies","Populer","Trending Tv","Upcoming Movies","Top Rated"]
+    let sectionTitles : [String] = ["Trending Movies","Trending Tv","Populer","Upcoming Movies","Top Rated"]
     
     private let homeFeedTabs : UITableView = {
         let table = UITableView(frame: .zero , style: .grouped)
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil),
         ]
-        
+        self.navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.tintColor = .white
     }
     
@@ -78,17 +78,20 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
             return UITableViewCell()
         }
         
+        cell.delegate = self
+
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
             APICaller.shared.getTrendingMovies { result in
                 switch result {
+                    
                 case .success(let titles):
                     cell.configure(with: titles)
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
+            
         case Sections.TrendingTv.rawValue:
             APICaller.shared.getTrendingTvs { result in
                 switch result {
@@ -97,7 +100,6 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
         case Sections.Popular.rawValue:
             APICaller.shared.getPopular { result in
@@ -107,9 +109,9 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
         case Sections.Upcoming.rawValue:
+            
             APICaller.shared.getUpcomingMovies { result in
                 switch result {
                 case .success(let titles):
@@ -117,20 +119,20 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
+            
         case Sections.TopRated.rawValue:
             APICaller.shared.getTopRated { result in
                 switch result {
                 case .success(let titles):
                     cell.configure(with: titles)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    print(error)
                 }
-                
             }
-        default :
+        default:
             return UITableViewCell()
+
         }
         
         return cell
@@ -161,5 +163,15 @@ extension HomeViewController : UITableViewDataSource,UITableViewDelegate {
         let offset = scrollView.contentOffset.y + defaultOffset
         
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+}
+
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = TitlePreviewViewController()
+            vc.configure(with: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
